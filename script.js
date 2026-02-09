@@ -23,11 +23,12 @@ function playConversation() {
   conversation.forEach((msg, index) => {
     setTimeout(() => {
       const bubble = document.createElement("div");
-      bubble.classList.add("chat-bubble", msg.sender);
+      // Map "Ani" -> "him" (left), "Cheams" -> "her" (right)
+      bubble.classList.add("chat-bubble", msg.sender === "Ani" ? "him" : "her");
 
       const label = document.createElement("span");
       label.classList.add("sender-label");
-      label.textContent = msg.sender === "him" ? "Him" : "Her";
+      label.textContent = msg.sender; // Display "Ani" or "Cheams"
 
       const text = document.createElement("span");
       text.textContent = msg.text;
