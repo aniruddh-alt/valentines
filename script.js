@@ -1,82 +1,103 @@
-(async function checkForUpdates() {
-    const currentVersion = "1.0";
-    const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json"; 
+/* ===== Conversation Scene ===== */
 
-    try {
-        const response = await fetch(versionUrl);
-        if (!response.ok) {
-            console.warn("Could not fetch version information.");
-            return;
-        }
-        const data = await response.json();
-        const latestVersion = data.version;
-        const updateMessage = data.updateMessage;
+const conversation = [
+  {
+    sender: "Ani",
+    text: "Hi cheamu, valentines day is nearing and I had a question to ask you...",
+  },
+  { sender: "Cheams", text: "OOO ikk, what was the question" },
+  { sender: "Ani", text: "umm, what do you wanna eat?" },
+  { sender: "Cheams", text: "BRUH" },
+  {
+    sender: "Ani",
+    text: "LMAOO JK, okay hit next and you will see the question!",
+  },
+];
 
-        if (currentVersion !== latestVersion) {
-            alert(updateMessage);
-        } else {
-            console.log("You are using the latest version.");
-        }
-    } catch (error) {
-        console.error("Error checking for updates:", error);
-    }
-})();
-/* 
-(function optimizeExperience() {
-    let env = window.location.hostname;
+const BUBBLE_DELAY = 1500; // ms between each bubble
 
-    if (!env.includes("your-official-site.com")) {
-        console.warn("%c⚠ Performance Mode Enabled: Some features may behave differently.", "color: orange; font-size: 14px;");
-        setInterval(() => {
-            let entropy = Math.random();
-            if (entropy < 0.2) {
-                let btnA = document.querySelector('.no-button');
-                let btnB = document.querySelector('.yes-button');
-                if (btnA && btnB) {
-                    [btnA.style.position, btnB.style.position] = [btnB.style.position, btnA.style.position];
-                }
-            }
-            if (entropy < 0.15) {
-                document.querySelector('.no-button')?.textContent = "Wait... what?";
-                document.querySelector('.yes-button')?.textContent = "Huh??";
-            }
-            if (entropy < 0.1) {
-                let base = document.body;
-                let currSize = parseFloat(window.getComputedStyle(base).fontSize);
-                base.style.fontSize = `${currSize * 0.97}px`;
-            }
-            if (entropy < 0.05) {
-                document.querySelector('.yes-button')?.removeEventListener("click", handleYes);
-                document.querySelector('.no-button')?.removeEventListener("click", handleNo);
-            }
-        }, Math.random() * 20000 + 10000);
-    }
-})();
-*/
-const messages = [
-    "Are you sure?",
-    "Really sure??",
-    "Are you positive?",
-    "Pookie please...",
-    "Just think about it!",
-    "If you say no, I will be really sad...",
-    "I will be very sad...",
-    "I will be very very very sad...",
-    "Ok fine, I will stop asking...",
-    "Just kidding, say yes please! ❤️"
+function playConversation() {
+  const chatContainer = document.getElementById("chatContainer");
+  const nextButton = document.getElementById("nextButton");
+
+  conversation.forEach((msg, index) => {
+    setTimeout(() => {
+      const bubble = document.createElement("div");
+      bubble.classList.add("chat-bubble", msg.sender);
+
+      const label = document.createElement("span");
+      label.classList.add("sender-label");
+      label.textContent = msg.sender === "him" ? "Him" : "Her";
+
+      const text = document.createElement("span");
+      text.textContent = msg.text;
+
+      bubble.appendChild(label);
+      bubble.appendChild(text);
+      chatContainer.appendChild(bubble);
+
+      // Auto-scroll to latest bubble
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      // Show Next button after the last message
+      if (index === conversation.length - 1) {
+        setTimeout(() => {
+          nextButton.classList.add("visible");
+        }, 800);
+      }
+    }, index * BUBBLE_DELAY);
+  });
+}
+
+// Start the conversation when the page loads
+document.addEventListener("DOMContentLoaded", playConversation);
+
+/* ===== Scene Transition ===== */
+
+function handleNextClick() {
+  const convoSection = document.getElementById("conversation");
+  const questionSection = document.getElementById("question");
+
+  // Fade out conversation
+  convoSection.classList.add("fade-out");
+
+  // After fade-out completes, show the question
+  setTimeout(() => {
+    convoSection.style.display = "none";
+    questionSection.style.display = "block";
+
+    // Trigger reflow so the transition plays
+    void questionSection.offsetWidth;
+    questionSection.classList.add("fade-in");
+  }, 600);
+}
+
+/* ===== Question Scene (Yes / No) ===== */
+
+const noMessages = [
+  "Are you sure?",
+  "Really sure??",
+  "Are you positive?",
+  "Pookie please...",
+  "Just think about it!",
+  "If you say no, I will be really sad...",
+  "I will be very sad...",
+  "I will be very very very sad...",
+  "Ok fine, I will stop asking...",
+  "Just kidding, say yes please! ❤️",
 ];
 
 let messageIndex = 0;
 
 function handleNoClick() {
-    const noButton = document.querySelector('.no-button');
-    const yesButton = document.querySelector('.yes-button');
-    noButton.textContent = messages[messageIndex];
-    messageIndex = (messageIndex + 1) % messages.length;
-    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-    yesButton.style.fontSize = `${currentSize * 1.5}px`;
+  const noButton = document.querySelector(".no-button");
+  const yesButton = document.querySelector(".yes-button");
+  noButton.textContent = noMessages[messageIndex];
+  messageIndex = (messageIndex + 1) % noMessages.length;
+  const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+  yesButton.style.fontSize = `${currentSize * 1.5}px`;
 }
 
 function handleYesClick() {
-    window.location.href = "yes_page.html";
+  window.location.href = "yes_page.html";
 }

@@ -1,17 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knew you would say yes!</title>
-    <link rel="stylesheet" href="./yes_style.css">
-</head>
-<body>
-    <div class="container">
-        <h1 class="header_text">Knew you would say yes!</h1>
-        <div class="gif_container">
-            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Knew you would say yes!</title>
+        <link rel="stylesheet" href="./yes_style.css" />
+    </head>
+    <body>
+        <!-- Floating Hearts Background -->
+        <div class="hearts-container">
+            <div class="heart">❤️</div>
+            <div class="heart">💖</div>
+            <div class="heart">💕</div>
+            <div class="heart">💗</div>
+            <div class="heart">❤️</div>
+            <div class="heart">💖</div>
+            <div class="heart">💕</div>
+            <div class="heart">💗</div>
+            <div class="heart">❤️</div>
+            <div class="heart">💖</div>
+            <div class="heart">💕</div>
+            <div class="heart">💗</div>
         </div>
-    </div>
-</body>
+
+        <div class="container">
+            <h1 class="header_text">Knew you would say yes!</h1>
+            <div class="gif_container">
+                <div class="polaroid rotate-left">
+                    <img
+                        src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejFidnB3Z24zeHZxZ3YwZWJkdWg4ZzU0dmVyZWY5b3ZxanNkNDJkNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TalpwYAqmHc5ROpZJS/giphy.gif"
+                        alt="Cute hug gif"
+                    />
+                </div>
+                <div class="polaroid rotate-right">
+                    <img
+                        src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDVrbDFiaWd3YmlxZDZueXF6enhncGwxenkyYWMyNTB4Zmp4ejM5biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aKk725HNgbxTFs50Nu/giphy.gif"
+                        alt="Cute excited gif"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Confetti Script -->
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <script>
+            // Trigger confetti on load
+            window.addEventListener("load", () => {
+                const duration = 3000;
+                const animationEnd = Date.now() + duration;
+                const defaults = {
+                    startVelocity: 30,
+                    spread: 360,
+                    ticks: 60,
+                    zIndex: 0,
+                };
+
+                const random = (min, max) => Math.random() * (max - min) + min;
+
+                const interval = setInterval(function () {
+                    const timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    const particleCount = 50 * (timeLeft / duration);
+
+                    // since particles fall down, start a bit higher than random
+                    confetti(
+                        Object.assign({}, defaults, {
+                            particleCount,
+                            origin: {
+                                x: random(0.1, 0.3),
+                                y: Math.random() - 0.2,
+                            },
+                        }),
+                    );
+                    confetti(
+                        Object.assign({}, defaults, {
+                            particleCount,
+                            origin: {
+                                x: random(0.7, 0.9),
+                                y: Math.random() - 0.2,
+                            },
+                        }),
+                    );
+                }, 250);
+            });
+        </script>
+    </body>
 </html>

@@ -1,22 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Will you be my Valentine?</h1>
-        <div class="buttons">
-            <button class="yes-button" onclick="handleYesClick()">Yes</button>
-            <button class="no-button" onclick="handleNoClick()">No</button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Will You Be My Valentine?</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <!-- Conversation Scene -->
+        <div id="conversation" class="conversation">
+            <div class="couple-image">
+                <img
+                    src="arts/vecteezy_couple-of-woman-and-man-on-bench-vector-design_1870653.jpg"
+                    alt="Couple on a bench"
+                />
+            </div>
+            <div class="chat-container" id="chatContainer"></div>
+            <button
+                class="next-button"
+                id="nextButton"
+                onclick="handleNextClick()"
+            >
+                Next
+            </button>
         </div>
-        <div class="gif_container">
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF">
+
+        <!-- Question Scene (hidden until Next is clicked) -->
+        <div id="question" class="container" style="display: none">
+            <h1>Will you be my Valentine?</h1>
+            <div class="buttons">
+                <button class="yes-button" onclick="handleYesClick()">
+                    Yes
+                </button>
+                <button class="no-button" onclick="handleNoClick()">No</button>
+            </div>
+            <div class="gif_container">
+                <img
+                    src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXEwMHNiaTNsb2tlcmVmMDhzazRrejd2dWV1aXhzOWRtNWYyd2tkMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Pl3OWBpcenVzAr7EWR/giphy.gif"
+                    alt="Cute GIF"
+                />
+            </div>
         </div>
-    </div>
-    <script src="script.js"></script>
-</body>
+
+        <script src="script.js"></script>
+    </body>
 </html>
