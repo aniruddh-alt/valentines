@@ -38,7 +38,10 @@ function playConversation() {
       chatContainer.appendChild(bubble);
 
       // Auto-scroll to latest bubble
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: "smooth"
+      });
 
       // Show Next button after the last message
       if (index === conversation.length - 1) {
